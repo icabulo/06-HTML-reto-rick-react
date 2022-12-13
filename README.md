@@ -1,70 +1,110 @@
-# Getting Started with Create React App
+## Make It Real - Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Rick and Morty characters with react
 
-## Available Scripts
+This is a solution to the sixth project of the Make It Real course.
 
-In the project directory, you can run:
+## Table of contents
 
-### `npm start`
+- [Rick and Morty characters with react](#rick-and-morty-characters-with-react)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+    - [The challenge](#the-challenge)
+    - [Screenshot](#screenshot)
+  - [My process](#my-process)
+    - [Built with](#built-with)
+    - [What I learned](#what-i-learned)
+      - [**_Using Axios Library + useEffect and useState:_**](#using-axios-library--useeffect-and-usestate)
+      - [**_Map() method and Component Props:_**](#map-method-and-component-props)
+    - [Continued development](#continued-development)
+    - [Useful resources](#useful-resources)
+  - [Author](#author)
+  - [Acknowledgments](#acknowledgments)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Overview
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### The challenge
 
-### `npm test`
+In this challenge we have developed a mini web application in react by getting data from an external API and creating a charaters card grid layout.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Come have and a look at our Rick and Morty cards.
 
-### `npm run build`
+- Reusable components.
+- React.
+- Axios library.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Screenshot
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Mobile](mobile-design.png)
+![Desktop](desktop-design.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## My process
 
-### `npm run eject`
+### Built with
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React
+- Axios
+- Flexbox & Grid
+- CSS custom properties
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### What I learned
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+We learned how to use Axios library to fetch data from an external API. Then we learned how to use useState and useEffect hooks to save that data into a local variable (an object). Eventually, the map() method showed up to make the code more readable and card components reusable from the characters' data array.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+We also used props to send custom information to are card component to allow it to be reusable and display different information for the characters on the screen.
 
-## Learn More
+Finally, we put Flex into action to help us style our webpage.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### **_Using Axios Library + useEffect and useState:_**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```js
+const [characters, setCharacters] = useState([]);
 
-### Code Splitting
+useEffect(() => {
+  axios
+    .get("https://rickandmortyapi.com/api/character/?page=7")
+    .then((response) => {
+      setCharacters(response.data.results);
+    });
+}, []);
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+#### **_Map() method and Component Props:_**
 
-### Analyzing the Bundle Size
+```js
+const displayCharacters = characters
+  .filter((elem, ind) => ind < 20)
+  .map((item, index) => {
+    return (
+      <div key={item.id}>
+        <CharacterCard
+          url={item.image}
+          name={item.name}
+          location={item.location.name}
+        />
+      </div>
+    );
+  });
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Continued development
 
-### Making a Progressive Web App
+The next step will be to try to include all the props in a single object. That will make the App.js code shorter and probably more readable and coherent.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+It will be nice also to allow: random card generation, a selectable amount of cards displayed, and more interaction with the user inputs.
 
-### Advanced Configuration
+Some embellishments style properties will do the final trick for visual engagement.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Useful resources
 
-### Deployment
+- [React: props concept](https://youtu.be/bMknfKXIFA8?t=14411) - In deep and straightforward look into React.
+- [Axios](https://youtu.be/uxsEZgkcvFU) - Useful Axios tutorial (also in spanish).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Author
 
-### `npm run build` fails to minify
+- github - [Laura Esmoris](https://github.com/)
+- github - [Ivan Cabulo](https://github.com/icabulo)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Acknowledgments
+
+Nice help from out mentors. Sergio and Daniel.
